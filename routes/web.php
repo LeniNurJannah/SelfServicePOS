@@ -27,3 +27,5 @@ Route::post('/updatedata/{id}',  [EmployeeController::class, 'updatedata'])->nam
 
 Route::get('/delete/{id}',  [EmployeeController::class, 'delete'])->name('delete');
 
+
+
