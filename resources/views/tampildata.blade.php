@@ -22,7 +22,7 @@
                         <form action="/updatedata/{{ $data->id }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                              <label for="exampleInputEmail1" class="form-label">Nama Lenggkap</label>
+                              <label for="exampleInputEmail1" class="form-label">Nama Lengkap</label>
                               <input type="text" name="nama" class="form-control" id="exampleInputEmail1" 
                               aria-describedby="emailHelp" value="{{ $data->nama }}">
                             </div>
