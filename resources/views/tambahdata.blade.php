@@ -1,70 +1,92 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.admin')
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+@section('content')
 
-    <title>SUBMISSION 3</title>
-  </head>
-  <body>
-    <h1 class="text-center mb-4">Tambah Data Pegawai</h1>
+<body>
+  <br>
+  <br>
+  <h1 class="text-center mb-5 mt-5">Tambah Data Pegawai</h1>
 
-    <div class="container">
+  <div class="container mb-5">
 
-        <div class="row justify-content-center">
-            <div class="col-8">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="/insertdata" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="mb-3">
-                              <label for="exampleInputEmail1" class="form-label">Nama Lenggkap</label>
-                              <input type="text" name="nama" class="form-control" id="exampleInputEmail1" 
-                              aria-describedby="emailHelp">
+      <div class="row justify-content-center">
+          <div class="col-8">
+              <div class="card">
+                  <div class="card-body">
+                      <form action="/insertdata" method="post" enctype="multipart/form-data">
+                          @csrf
+                          <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Nama Lenggkap</label>
+                            <input type="text" name="nama" class="form-control" id="exampleInputEmail1" 
+                            aria-describedby="emailHelp">
+                            @error('nama')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                          </div>
+
+                          <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Tanggal Lahir</label>
+                            <input type="date" name="tanggal_lahir" class="form-control" id="exampleInputEmail1" 
+                            aria-describedby="emailHelp">
+                            @error('nama')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                          </div>
+
+
+                          <div class="mb-3">
+                              <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>
+                              <select class="form-select" name="jeniskelamin" aria-label="Default select example">
+                                  <option selected>Pilih Jenis Kelamin</option>
+                                  <option value="cowo">cowo</option>
+                                  <option value="cewe">cewe</option>
+                                </select>
                             </div>
+
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>
-                                <select class="form-select" name="jeniskelamin" aria-label="Default select example">
-                                    <option selected>Pilih Jenis Kelamin</option>
-                                    <option value="cowo">cowo</option>
-                                    <option value="cewe">cewe</option>
-                                  </select>
-                              </div>
-                              <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">No Telpon</label>
-                                <input type="number" name="notelpon" class="form-control" id="exampleInputEmail1" 
-                                aria-describedby="emailHelp">
-                              </div>
+                              <label for="exampleInputEmail1" class="form-label">Agama</label>
+                              <select class="form-select" name="id_religions" aria-label="Default select example">
+                                  <option selected>Pilih Agama</option>
+                                  @foreach($dataagama as $data)
+                                  <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                  @endforeach
+                                </select>
+                            </div>
 
-                              <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">masukan foto</label>
-                                <input type="file" name="foto" class="form-control"> 
-                              </div>
-                           
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                          </form>
-                    </div> 
-            </div>
-      
-        </div>
-    </div>
 
+                            <div class="mb-3">
+                              <label for="exampleInputEmail1" class="form-label">No Telpon</label>
+                              <input type="number" name="notelpon" class="form-control" id="exampleInputEmail1" 
+                              aria-describedby="emailHelp">
+                              @error('notelpon')
+                              <div class="alert alert-danger">{{ $message }}</div>
+                          @enderror
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="exampleInputEmail1" class="form-label">masukan foto</label>
+                              <input type="file" name="foto" class="form-control"> 
+                            </div>
+                            
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                  </div> 
+          </div>
     
+      </div>
+  </div>
 
-    <!-- Optional JavaScript; choose one of the two! -->
+  
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <!-- Optional JavaScript; choose one of the two! -->
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    -->
-  </body>
-</html>
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!--
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+  -->
+</body>
+@endsection
