@@ -1,7 +1,11 @@
 <?php
 
+use App\Models\Employee;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ReligionController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +18,18 @@ use App\Http\Controllers\EmployeeController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $jumlahpegawai = Employee::count();
+    $jumlahpegawaicowo = Employee::where('jeniskelamin','cowo')->count();
+    $jumlahpegawaicewe = Employee::where('jeniskelamin','cewe')->count();
+
+    return view('welcome', compact('jumlahpegawai','jumlahpegawaicowo','jumlahpegawaicewe'));
 });
 
-Route::get('/pegawai',  [EmployeeController::class, 'index'])->name('pegawai'); 
+Route::get('/pegawai',  [EmployeeController::class, 'index'])->name('pegawai')->middleware('auth'); 
+
+Route::group(['middleware' => ['auth','hakakses:admin']], function(){
+    Route::get('/pegawai',  [EmployeeController::class, 'index'])->name('pegawai'); 
+});
 
 Route::get('/tambahpegawai',  [EmployeeController::class, 'tambahpegawai'])->name('tambahpegawai'); 
 Route::post('/insertdata',  [EmployeeController::class, 'insertdata'])->name('insertdata'); 
@@ -26,3 +38,22 @@ Route::get('/tampilkandata/{id}',  [EmployeeController::class, 'tampilkandata'])
 Route::post('/updatedata/{id}',  [EmployeeController::class, 'updatedata'])->name('updatedata');
 
 Route::get('/delete/{id}',  [EmployeeController::class, 'delete'])->name('delete');
+
+Route::get('/login',  [LoginController::class, 'login'])->name('login');
+Route::post('/loginproses',  [LoginController::class, 'loginproses'])->name('loginproses');
+
+
+Route::get('/register',  [LoginController::class, 'register'])->name('register');
+Route::post('/registeruser',  [LoginController::class, 'registeruser'])->name('registeruser');
+
+Route::get('/logout',  [LoginController::class, 'logout'])->name('logout');
+
+
+
+Route::get('/datareligion',  [ReligionController::class, 'index'])->name('datareligion')->middleware('auth'); 
+Route::get('/tambahagama',  [ReligionController::class, 'create'])->name('tambahagama'); 
+
+
+Route::post('/insertdatareligion',  [ReligionController::class, 'store'])->name('insertdatareligion'); 
+
+
